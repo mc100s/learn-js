@@ -1,0 +1,18 @@
+
+$primary: #2DC5FA; // Electric Blue
+$secondary: #2D354C; // Dark Blue
+$success: #77C0BC; // Light Green
+$info: #B064EA; // Bright Purple
+$warning: #FDD35B; // Light Yellow
+$danger: #F27471; // Indian Red
+// $light
+// $dark
+
+$font-family-sans-serif: Gotham;
+
+@import 'bootstrap/scss/bootstrap';
+@import './font.scss';
+
+.btn.btn-primary {
+  color: white;
+}
