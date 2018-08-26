@@ -14,6 +14,7 @@ import {
   DropdownItem
 } from 'reactstrap';
 import Home from './pages/Home'
+import Course from './pages/Course'
 import './App.css';
 
 class App extends Component {
@@ -37,7 +38,7 @@ class App extends Component {
         <Navbar color="primary" dark expand="md">
           <NavbarBrand href="/">Learn JS</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
+          {/* <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink href="/components/">Components</NavLink>
@@ -63,11 +64,12 @@ class App extends Component {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
-          </Collapse>
+          </Collapse> */}
         </Navbar>
         
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/course/:courseId" exact component={Course} />
           <Route render={props => <h1 className="text-center mt-4">404</h1>} />
         </Switch>
       </div>

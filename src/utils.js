@@ -14,8 +14,6 @@ export function getIndentationNumberForNextLine(string, cursorIndex) {
     else 
       result = 0
   }
-  // if (string[cursorIndex] === "{")
-  //   result += 0;
   return result
 }
 
