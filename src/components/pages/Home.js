@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import CandSanbox from '../CodeSandbox'
 
-class App extends Component {
+class Home extends Component {
   render() {
     return (
-      <div className="Home">
-        Home
+      <div className="Home container mt-3">
+        <h1>Home</h1>
+        <CandSanbox/>
       </div>
     );
   }
 }
 
-export default App;
+export default Home;
