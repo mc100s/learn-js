@@ -13,6 +13,9 @@ $font-family-sans-serif: Gotham;
 @import 'bootstrap/scss/bootstrap';
 @import './font.scss';
 
+$navbar-height: 60px;
+
+
 .btn.btn-primary {
   color: white;
 }
@@ -42,3 +45,72 @@ $font-family-sans-serif: Gotham;
   }
 }
 
+.App {
+  .navbar {
+    height: $navbar-height!important;
+    position: fixed;
+    z-index: 90;
+    width: 100%;
+  }
+
+  .after-navbar {
+    height: $navbar-height;
+  }
+}
+
+.Course {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+
+
+
+  .sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    height: calc(100vh - #{$navbar-height});
+    height: 100vh;
+    padding: 1rem 1.5rem;
+    padding-top: calc(#{$navbar-height} + 1rem);
+    border-right: 1px solid #ececec;
+    background: #f7f7f7;
+    position: fixed;
+    z-index: 50;
+    top: 0;
+
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
+
+
+    ul li {
+      padding-bottom: 0.5rem;
+    }
+  }
+
+
+
+  .content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    @media screen and (max-width: 1700px) {
+      margin-left: 250px;
+    }
+
+    @media screen and (max-width: 900px) {
+      margin-left: auto;
+    }
+
+  }
+
+  
+
+}
+
+// @media (max-width: 12000px) {
+//   .content {
+//     padding-top: 1rem;
+//     background: red !important;
+//   }
+// }

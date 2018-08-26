@@ -13,8 +13,25 @@ class Course extends Component {
   render() {
     let courseId = Number(this.props.match.params.courseId)
     return (
-      <div className="Course container mt-3">
-      {courseId == 1 && (
+      <div className="Course">
+        <nav className="sidebar">
+          <div className="sidebar-header">
+            <h3>Courses</h3>
+          </div>
+
+          <ul className="list-unstyled components">
+            {/* <p>Dummy Heading</p> */}
+            <li>
+              <Link to="/course/1">Basics about Programming</Link>
+            </li>
+            <li>
+              <Link to="/course/2">Variables types</Link>
+            </li>
+          </ul>
+        </nav>
+        <div className="content container">
+
+          {courseId == 1 && (
           <div>
             <h2>Basics about Programming</h2>
             In this first chapter, we'll learn the basics of programming and the Javascript language.
@@ -66,6 +83,7 @@ testEquality(d, false);`} />
         <hr/>
         {courseId > 1 && <Button className="float-left"  tag={Link} to={"/course/"+(courseId-1)}>&lt; Previous course</Button>}
         <Button className="float-right" tag={Link} to={"/course/"+(courseId+1)}>Next course &gt;</Button>
+        </div>
       </div>
     );
   }

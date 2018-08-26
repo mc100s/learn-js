@@ -36,7 +36,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar color="primary" dark expand="md">
-          <NavbarBrand href="/">Learn JS</NavbarBrand>
+          <NavbarBrand tag={Link} to="/">Learn Programming with JavaScript</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           {/* <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -66,6 +66,7 @@ class App extends Component {
             </Nav>
           </Collapse> */}
         </Navbar>
+        <div className="after-navbar"></div>
         
         <Switch>
           <Route path="/" exact component={Home} />
