@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Prism from "prismjs";
 import {
   Button,
   Row,
@@ -7,6 +8,7 @@ import {
   Alert
 } from 'reactstrap';
 import { insertAt, getIndentationNumberForNextLine, getPairCharacter } from '../utils'
+
 
 class CodeSandbox extends Component {
   constructor(props) {
@@ -129,21 +131,21 @@ class CodeSandbox extends Component {
   }
 
   render() {
-    // expect(true).to.equal(false)
     return (
       <div className="CodeSandbox my-3">
+
         <Row>
           <Col sm="6">
             <h3>Input <Button className="float-right" color="primary" onClick={this.runCode} size="md">Run (Ctrl + Enter)</Button></h3>
             <pre>
-              <code>
+              {/* TODO: look here for color syntax of teaxtarea: https://gordonlesti.com/a-prism-based-web-text-editor-with-syntax-highlighting/ */}
+              <code className="">
                 <Input type="textarea" ref="input" value={this.state.codeContent} onChange={this.handleChange} onKeyDown={this.handleKeyDown} />
               </code>
             </pre>
-            <figure className="highlight"><pre>{this.props.testContent}</pre></figure>
             <pre>
-              <code>
-
+              <code className="language-javascript">
+                {this.props.testContent}
               </code>
             </pre>
           </Col>
@@ -157,13 +159,19 @@ class CodeSandbox extends Component {
     );
   }
 
+  componentDidMount() {
+    Prism.highlightAll();
+  }
+
   componentDidUpdate(prevProps) {
+
     if (this.props.initialCodeContent !== prevProps.initialCodeContent) {
       // We are on a new page
       this.setState({
         logs: [],
         codeContent: this.props.initialCodeContent
       })
+      Prism.highlightAll();
     }
   }
 }
