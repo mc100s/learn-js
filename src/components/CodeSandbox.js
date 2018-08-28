@@ -156,6 +156,15 @@ class CodeSandbox extends Component {
       </div>
     );
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.initialCodeContent !== prevProps.initialCodeContent) {
+      // We are on a new page
+      this.setState({
+        codeContent: this.props.initialCodeContent
+      })
+    }
+  }
 }
 
 export default CodeSandbox;
