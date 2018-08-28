@@ -22,5 +22,6 @@ export function getPairCharacter(character) {
     case `{`: return `}`
     case `(`: return `)`
     case `[`: return `]`
+    default: return undefined
   }
 }

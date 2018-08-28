@@ -133,7 +133,7 @@ class CodeSandbox extends Component {
     return (
       <div className="CodeSandbox my-3">
         <Row>
-        <Col sm="6">
+          <Col sm="6">
             <h3>Input <Button className="float-right" color="primary" onClick={this.runCode} size="md">Run (Ctrl + Enter)</Button></h3>
             <pre>
               <code>

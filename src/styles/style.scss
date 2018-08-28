@@ -85,6 +85,10 @@ $navbar-height: 60px;
 
     ul li {
       padding-bottom: 0.5rem;
+
+      .active {
+        font-weight: bolder;
+      }
     }
   }
 
@@ -104,13 +108,4 @@ $navbar-height: 60px;
 
   }
 
-  
-
 }
-
-// @media (max-width: 12000px) {
-//   .content {
-//     padding-top: 1rem;
-//     background: red !important;
-//   }
-// }

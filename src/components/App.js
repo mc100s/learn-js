@@ -70,7 +70,7 @@ class App extends Component {
         
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/course/:courseId" exact component={Course} />
+          <Route path="/course/:courseSlug" exact component={Course} />
           <Route render={props => <h1 className="text-center mt-4">404</h1>} />
         </Switch>
       </div>
