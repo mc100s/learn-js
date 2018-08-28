@@ -161,6 +161,7 @@ class CodeSandbox extends Component {
     if (this.props.initialCodeContent !== prevProps.initialCodeContent) {
       // We are on a new page
       this.setState({
+        logs: [],
         codeContent: this.props.initialCodeContent
       })
     }
