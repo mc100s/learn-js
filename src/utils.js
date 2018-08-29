@@ -25,3 +25,35 @@ export function getPairCharacter(character) {
     default: return undefined
   }
 }
+
+
+export function getCourseProgression(courseSlug) {
+  if (!localStorage.getItem('coursesProgressions'))
+    return 0;
+  let coursesProgressions = JSON.parse(localStorage.getItem('coursesProgressions'))
+  if (!coursesProgressions[courseSlug])
+    return 0
+  return coursesProgressions[courseSlug]
+}
+
+export function setCourseProgression(courseSlug, value = 1) {
+  if (!localStorage.getItem('coursesProgressions')) {
+    localStorage.setItem('coursesProgressions', JSON.stringify({}))
+  }
+  let coursesProgressions = JSON.parse(localStorage.getItem('coursesProgressions'))
+  coursesProgressions[courseSlug] = value
+  localStorage.setItem('coursesProgressions', JSON.stringify(coursesProgressions))
+}
+
+export function getTotalCourseProgression() {
+  if (!localStorage.getItem('coursesProgressions'))
+    return 0;
+  let coursesProgressions = JSON.parse(localStorage.getItem('coursesProgressions'))
+  return Object.keys(coursesProgressions).length;
+}
+
+
+export function resetCourseProgression() {
+  localStorage.removeItem('coursesProgressions')
+}
+

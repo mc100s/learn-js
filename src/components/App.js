@@ -13,6 +13,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
+import { resetCourseProgression } from '../utils'
 import Home from './pages/Home'
 import Course from './pages/Course'
 import './App.css';
@@ -36,7 +37,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar color="primary" dark expand="md">
-          <NavbarBrand tag={Link} to="/">Learn Programming with JavaScript</NavbarBrand>
+          <NavbarBrand tag={Link} to="/" onClick={resetCourseProgression}>Learn Programming with JavaScript</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           {/* <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

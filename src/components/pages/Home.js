@@ -9,7 +9,7 @@ class Home extends Component {
         <h1>Home</h1>
 
         <ul>
-          <li><Link to="/course/1">Course 1</Link></li>
+          <li><Link to="/course/intro-to-js">Course 1</Link></li>
         </ul>
       </div>
     );
