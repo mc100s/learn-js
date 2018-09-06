@@ -30,7 +30,7 @@ class Course extends Component {
 
           <ul className="list-unstyled components">
             {courses.map(course => (
-              <li>
+              <li key={course.slug}>
                 <NavLink to={"/course/"+course.slug}> {getCourseProgression(course.slug) ? <FaCheckSquare /> : <FaSquare/>} {course.title}</NavLink>
               </li>
             ))}

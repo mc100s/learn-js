@@ -22,3 +22,5 @@ yarn-error.log*
 
 
 src/styles/style.css
+
+.env

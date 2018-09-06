@@ -52,6 +52,10 @@ $navbar-height: 60px;
     position: fixed;
     z-index: 90;
     width: 100%;
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.8);
+    }
   }
 
   .after-navbar {
