@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Prism from "prismjs";
+import PropTypes from 'prop-types';
 import {
   Button,
   Row,
@@ -9,52 +10,61 @@ import {
 } from 'reactstrap';
 import { insertAt, getIndentationNumberForNextLine, getPairCharacter } from '../utils'
 
-import '../firebase/index'
-import firebase from 'firebase'
+import api from '../api'
 
 class CodeSandbox extends Component {
   constructor(props) {
     super(props);
     this.state = {
       logs: [],
-      codeContent: this.props.initialCodeContent
+      codeContent: this.props.initialCodeContent,
+      isSolved: false
     }
     this.futureLogs = []
   }
 
-  addLog = (content, color= "light") => {
+  addLog = (content, color = "light", isSuccess = true) => {
     this.futureLogs.push({
       content,
-      color
+      color,
+      isSuccess
     });
     this.setState({
       logs: [...this.futureLogs]
     })
   }
 
-  testEquality = (x,y) => {
-    if (x==y)
+  testEquality = (x, y) => {
+    if (x == y)
       this.addLog(`Test succesful: ${x} === ${y}`, "success")
     else
-      this.addLog(`Test unsuccessful: ${x} !== ${y}`, "warning")
+      this.addLog(`Test unsuccessful: ${x} !== ${y}`, "warning", false)
   }
 
   runCode = () => {
+    api.incrementNbOfExecutions()
 
     this.setState({
       logs: []
     })
     this.futureLogs = []
-    
+
     setTimeout(() => {
       try {
-        let functionContent = 
+        let functionContent =
           `var THAT = this; ${this.state.codeContent} ;\n${this.props.testContent}`
-          functionContent = functionContent 
             .replace(/console\.log/g, `THAT.addLog`)
             .replace(/testEquality/g, `THAT.testEquality`)
         let f = new Function(functionContent);
         f.call(this);
+
+        console.log('DEBUG this.futureLogs', this.futureLogs);
+
+        if (this.futureLogs.every(log => log.isSuccess)) {
+          console.log("CALL of api.incrementScore()");
+          // api.incrementScore()
+          api.addSolvedExercise(this.props.slug || "")
+        }
 
         this.setState({
           logs: [...this.futureLogs]
@@ -62,12 +72,12 @@ class CodeSandbox extends Component {
 
       } catch (e) {
         this.futureLogs = []
-        this.addLog("Error: " + e.message, "danger")
+        this.addLog("Error: " + e.message, "danger", false)
       }
     }, 200)
 
   }
-  
+
   handleChange = (e) => {
     this.setState({
       codeContent: e.target.value
@@ -83,9 +93,9 @@ class CodeSandbox extends Component {
         this.setState({
           codeContent: insertAt(e.target.value, selectionStart, `  `)
         },
-        () => {
-          target.setSelectionRange(selectionStart+2,selectionStart+2)
-        })
+          () => {
+            target.setSelectionRange(selectionStart + 2, selectionStart + 2)
+          })
         break;
       case "Enter":
         e.preventDefault()
@@ -95,22 +105,22 @@ class CodeSandbox extends Component {
         }
         let nbOfSpacesToInsert = getIndentationNumberForNextLine(e.target.value, selectionStart)
         this.setState({
-          codeContent: insertAt(e.target.value, selectionStart, "\n"+'  '.repeat(nbOfSpacesToInsert))
+          codeContent: insertAt(e.target.value, selectionStart, "\n" + '  '.repeat(nbOfSpacesToInsert))
         },
-        () => {
-          target.setSelectionRange(selectionStart+1+nbOfSpacesToInsert,selectionStart+1+nbOfSpacesToInsert)
-        })
+          () => {
+            target.setSelectionRange(selectionStart + 1 + nbOfSpacesToInsert, selectionStart + 1 + nbOfSpacesToInsert)
+          })
         break;
       case "{":
       case "(":
       case "[":
         e.preventDefault()
         this.setState({
-          codeContent: insertAt(e.target.value, selectionStart, e.key + getPairCharacter(e.key) )
+          codeContent: insertAt(e.target.value, selectionStart, e.key + getPairCharacter(e.key))
         },
-        () => {
-          target.setSelectionRange(selectionStart+1,selectionStart+1)
-        })
+          () => {
+            target.setSelectionRange(selectionStart + 1, selectionStart + 1)
+          })
         break;
     }
 
@@ -119,7 +129,7 @@ class CodeSandbox extends Component {
   renderLog = (log, i) => {
     // if (log instanceof Error)
     //   return <figure key={i} className="highlight"><pre style={{color: "red"}}>Error: {log.message}</pre></figure>
-    
+
     let message;
     try {
       message = JSON.stringify(log.content, null, 2)
@@ -132,36 +142,13 @@ class CodeSandbox extends Component {
     }
   }
 
-  addUserToFirebase = () => {
-    console.log("addUserToFirebase");
-    
-    var db = firebase.firestore();
-    db.settings({ timestampsInSnapshots: true });
-
-    // Add a second document with a generated ID.
-    db.collection("users").add({
-      first: "Alan",
-      middle: "Mathison",
-      last: "Turing",
-      born: 1912
-    })
-    .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-      console.error("Error adding document: ", error);
-    });
-  }
-
   render() {
     return (
-      <div className="CodeSandbox my-3">
-
-        <Button onClick={this.addUserToFirebase}>Add Alan</Button>
+      <div className="CodeSandbox mt-5 mb-3">
 
         <Row>
           <Col sm="6">
-            <h3>Input <Button className="float-right" color="primary" onClick={this.runCode} size="md">Run (Ctrl + Enter)</Button></h3>
+            <h3>Input <Button className="float-right" color={this.state.isSolved ? "success" : "primary"} onClick={this.runCode} size="md">Run (Ctrl + Enter)</Button></h3>
             <pre>
               {/* TODO: look here for color syntax of teaxtarea: https://gordonlesti.com/a-prism-based-web-text-editor-with-syntax-highlighting/ */}
               <code className="">
@@ -175,7 +162,7 @@ class CodeSandbox extends Component {
             </pre>
           </Col>
           <Col sm="6">
-            <h3>Output</h3>
+            <h3>Output {this.state.isSolved && `(solved)`}</h3>
             {this.state.logs.map(this.renderLog)}
           </Col>
         </Row>
@@ -186,19 +173,49 @@ class CodeSandbox extends Component {
 
   componentDidMount() {
     Prism.highlightAll();
+
+    this.unsubscribe = api.onUserSnapshot(user => {
+      console.log('DEBUG CodeSanbox user', user);
+      if (user.solvedExercises.includes(this.props.slug)) {
+        this.setState({
+          isSolved: true
+        })
+      }
+    })
   }
 
   componentDidUpdate(prevProps) {
 
     if (this.props.initialCodeContent !== prevProps.initialCodeContent) {
       // We are on a new page
+      this.unsubscribe()
       this.setState({
         logs: [],
-        codeContent: this.props.initialCodeContent
+        codeContent: this.props.initialCodeContent,
+        isSolved: false
       })
       Prism.highlightAll();
+
+      this.unsubscribe = api.onUserSnapshot(user => {
+        console.log('DEBUG CodeSanbox user', user);
+        if (user.solvedExercises.includes(this.props.slug)) {
+          this.setState({
+            isSolved: true
+          })
+        }
+      })
     }
   }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+}
+
+CodeSandbox.propTypes = {
+  initialCodeContent: PropTypes.string.isRequired,
+  testContent: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
 }
 
 export default CodeSandbox;
