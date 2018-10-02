@@ -9,7 +9,6 @@ $danger: #F27471; // Indian Red
 $font-family-sans-serif: Gotham;
 @import 'bootstrap/scss/bootstrap';
 @import './font.scss';
-@import './prism.css'; // More themes here: https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+javascript
 $navbar-height: 60px;
 
 .btn.btn-primary {

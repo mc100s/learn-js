@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom'
-import Prism from "prismjs";
 import {
   Button
 } from 'reactstrap';
@@ -53,15 +52,10 @@ class Course extends Component {
 
   componentDidMount() {
     setCourseProgression(this.props.match.params.courseSlug, 1)
-    Prism.highlightAll();
   }
 
   componentDidUpdate(prevProps) {
     setCourseProgression(this.props.match.params.courseSlug, 1)
-    if (this.props.match.params.courseSlug !== prevProps.match.params.courseSlug) {
-      // We are on a new page
-      Prism.highlightAll();
-    }
   }
 }
 

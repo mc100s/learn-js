@@ -115,7 +115,7 @@ export default {
       return transaction.get(userDocRef)
         .then(userDoc => {
           if (!userDoc.exists) {
-            throw "Document does not exist!";
+            throw new Error("Document does not exist!");
           }
 
           var newNbOfExecutions = userDoc.data().nbOfExecutions + 1;
@@ -143,7 +143,7 @@ export default {
       return transaction.get(userDocRef)
         .then(userDoc => {
           if (!userDoc.exists) {
-            throw "Document does not exist!";
+            throw new Error("Document does not exist!");
           }
 
           var newScore = userDoc.data().score + points;
@@ -184,31 +184,6 @@ export default {
           score: newScore
         })
       })
-
-
-
-    // db.runTransaction(transaction => {
-    //   return transaction.get(userDocRef)
-    //     .then(userDoc => {
-    //       if (!userDoc.exists) {
-    //         throw "Document does not exist!";
-    //       }
-
-    //       let solvedExercises = userDoc.data().solvedExercises || []
-    //       if (solvedExercises && solvedExercises.includes(slug)) return;
-
-    //       let newSolvedExercises = [...solvedExercises, slug]
-    //       var newScore = userDoc.data().score + 1;
-
-    //       transaction.update(userDocRef, {
-    //         solvedExercises: newSolvedExercises,
-    //         score: newScore
-    //       });
-    //     });
-    // })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
   },
 
   onUserSnapshot(cb) {
@@ -216,7 +191,9 @@ export default {
     if (!uid) return function () { };
 
     return db.collection("users").doc(uid).onSnapshot(doc => {
-      cb(doc.data())
+      console.log('DEBUG doc', doc);
+      let user = doc.data()
+      if (user) cb(user)
     })
   }
 }

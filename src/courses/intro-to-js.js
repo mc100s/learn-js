@@ -1,5 +1,6 @@
 import React from 'react';
 import CodeSandbox from '../components/CodeSandbox';
+import Editor from '../components/Editor';
 
 export default {
   title: "Introduction to Javascript",
@@ -14,9 +15,7 @@ export default {
 
       On most of the courses, you will have to write some code in the "<strong>Input</strong>" field. On this first page, you just need to write:
 
-      <br /><br />
-      <code>var x = 42</code>
-      <br /><br />
+      <Editor value={`let x = 42;`}></Editor>
 
 
       and then click on "<strong>Run</strong>".
@@ -24,8 +23,10 @@ export default {
       If you are connected, you should see your number of points increase in the navbar.
 
 
-      <CodeSandbox slug="into-to-js" initialCodeContent={``} testContent={`// Test to make sure that x is equl to 42
-testEquality(x, 42);`} />
+      <CodeSandbox slug="into-to-js" initialCodeContent={``} testContent={`
+// Test to make sure that x is equl to 42
+testEquality(x, 42);
+`} />
 
 
     </div>

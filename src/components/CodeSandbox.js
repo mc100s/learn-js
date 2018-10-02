@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import Prism from "prismjs";
 import PropTypes from 'prop-types';
 import {
   Button,
   Row,
   Col,
-  Input,
   Alert
 } from 'reactstrap';
-import { insertAt, getIndentationNumberForNextLine, getPairCharacter } from '../utils'
+
+import 'brace/mode/javascript';
+import 'brace/theme/monokai';
+
+import Editor from './Editor'
+
 
 import api from '../api'
 
@@ -78,52 +81,11 @@ class CodeSandbox extends Component {
 
   }
 
-  handleChange = (e) => {
+  handleAceChange = (codeContent, e) => {
+    console.log('DEBUG e', e);
     this.setState({
-      codeContent: e.target.value
+      codeContent
     })
-  }
-
-  handleKeyDown = (e) => {
-    let target = e.target
-    let selectionStart = e.target.selectionStart
-    switch (e.key) {
-      case "Tab":
-        e.preventDefault()
-        this.setState({
-          codeContent: insertAt(e.target.value, selectionStart, `  `)
-        },
-          () => {
-            target.setSelectionRange(selectionStart + 2, selectionStart + 2)
-          })
-        break;
-      case "Enter":
-        e.preventDefault()
-        if (e.ctrlKey || e.metaKey) {
-          this.runCode()
-          return
-        }
-        let nbOfSpacesToInsert = getIndentationNumberForNextLine(e.target.value, selectionStart)
-        this.setState({
-          codeContent: insertAt(e.target.value, selectionStart, "\n" + '  '.repeat(nbOfSpacesToInsert))
-        },
-          () => {
-            target.setSelectionRange(selectionStart + 1 + nbOfSpacesToInsert, selectionStart + 1 + nbOfSpacesToInsert)
-          })
-        break;
-      case "{":
-      case "(":
-      case "[":
-        e.preventDefault()
-        this.setState({
-          codeContent: insertAt(e.target.value, selectionStart, e.key + getPairCharacter(e.key))
-        },
-          () => {
-            target.setSelectionRange(selectionStart + 1, selectionStart + 1)
-          })
-        break;
-    }
-
   }
 
   renderLog = (log, i) => {
@@ -147,21 +109,28 @@ class CodeSandbox extends Component {
       <div className="CodeSandbox mt-5 mb-3">
 
         <Row>
-          <Col sm="6">
+          <Col sm="8">
             <h3>Input <Button className="float-right" color={this.state.isSolved ? "success" : "primary"} onClick={this.runCode} size="md">Run (Ctrl + Enter)</Button></h3>
-            <pre>
-              {/* TODO: look here for color syntax of teaxtarea: https://gordonlesti.com/a-prism-based-web-text-editor-with-syntax-highlighting/ */}
-              <code className="">
-                <Input type="textarea" ref="input" value={this.state.codeContent} onChange={this.handleChange} onKeyDown={this.handleKeyDown} />
-              </code>
-            </pre>
-            <pre>
-              <code className="language-javascript">
-                {this.props.testContent}
-              </code>
-            </pre>
+
+            <Editor
+              minLines={10}
+              value={this.state.codeContent}
+              onChange={this.handleAceChange}
+              commands={[{
+                name: 'run-command',
+                bindKey: { mac: 'Command-Enter' },
+                exec: this.runCode
+              }, {
+                name: 'run-ctrl',
+                bindKey: { win: 'Ctrl-Enter', mac: 'Ctrl-Enter' },
+                exec: this.runCode
+              }]}
+            />
+
+            <Editor value={this.props.testContent} />
+
           </Col>
-          <Col sm="6">
+          <Col sm="4">
             <h3>Output {this.state.isSolved && `(solved)`}</h3>
             {this.state.logs.map(this.renderLog)}
           </Col>
@@ -172,10 +141,7 @@ class CodeSandbox extends Component {
   }
 
   componentDidMount() {
-    Prism.highlightAll();
-
     this.unsubscribe = api.onUserSnapshot(user => {
-      console.log('DEBUG CodeSanbox user', user);
       if (user.solvedExercises.includes(this.props.slug)) {
         this.setState({
           isSolved: true
@@ -194,10 +160,8 @@ class CodeSandbox extends Component {
         codeContent: this.props.initialCodeContent,
         isSolved: false
       })
-      Prism.highlightAll();
 
       this.unsubscribe = api.onUserSnapshot(user => {
-        console.log('DEBUG CodeSanbox user', user);
         if (user.solvedExercises.includes(this.props.slug)) {
           this.setState({
             isSolved: true

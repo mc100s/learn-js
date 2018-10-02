@@ -19,7 +19,6 @@ import {
 import { resetCourseProgression } from '../utils'
 import Home from './pages/Home'
 import Course from './pages/Course'
-import './App.css';
 
 import api from '../api'
 

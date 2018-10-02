@@ -1,10 +1,32 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import AceEditor from 'react-ace'
 import {
   Button
 } from 'reactstrap';
 
+import 'brace/mode/javascript';
+import 'brace/theme/monokai';
+
 class Home extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      code: `for (let x = 0; x < 42; x++) {
+  
+      } `
+    }
+  }
+  onLoad() {
+    console.log("onLoad");
+  }
+  onChange = (code, x) => {
+    console.log("onChange", code, x);
+    this.setState({
+      code: code
+    })
+  }
+
   render() {
     return (
       <div className="Home container my-3 text-center" style={{ maxWidth: 700 }}>
@@ -16,6 +38,26 @@ class Home extends Component {
         <div className="my-5">
           <Button color="primary" tag={Link} to="/course/intro-to-js" size="lg" >Go to the first course</Button>
         </div>
+
+        <AceEditor
+          mode="javascript"
+          theme="monokai"
+          name="blah2"
+          onLoad={this.onLoad}
+          onChange={this.onChange}
+          fontSize={14}
+          showPrintMargin={true}
+          showGutter={true}
+          highlightActiveLine={true}
+          value={this.state.code}
+          setOptions={{
+            enableBasicAutocompletion: false,
+            enableLiveAutocompletion: false,
+            enableSnippets: false,
+            showLineNumbers: true,
+            tabSize: 2,
+          }} />
+
 
         <h2 className="mt-5">Developed by</h2>
         <div className="my-3">
