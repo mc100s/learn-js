@@ -13,6 +13,7 @@ let style = {
   boxSizing: "initial"
 }
 
+
 function Editor(props) {
   let readOnly = !props.onChange
   let value = props.value && readOnly ? props.value.trim() : props.value

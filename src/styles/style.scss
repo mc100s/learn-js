@@ -40,6 +40,11 @@ $navbar-height: 60px;
   }
 }
 
+.content>div>pre {
+  padding: 1rem;
+  background: #f7f7f7;
+}
+
 .App {
   .navbar-wrapper {
     height: $navbar-height;
@@ -73,7 +78,7 @@ $navbar-height: 60px;
     height: calc(100vh - #{$navbar-height});
     height: 100vh;
     padding: 1rem 1.5rem;
-    padding-top: calc(#{$navbar-height} + 1rem);
+    padding-top: calc(#{$navbar-height} + 1.5rem);
     border-right: 1px solid #ececec;
     background: #f7f7f7;
     position: fixed;
@@ -94,8 +99,7 @@ $navbar-height: 60px;
   }
 
   .content {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 1.5rem;
 
     @media screen and (max-width: 1700px) {
       margin-left: 250px;
@@ -103,6 +107,10 @@ $navbar-height: 60px;
 
     @media screen and (max-width: 900px) {
       margin-left: auto;
+    }
+
+    h2 {
+      margin-bottom: 1.5rem;
     }
   }
 }

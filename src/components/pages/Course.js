@@ -3,7 +3,7 @@ import { NavLink, Link } from 'react-router-dom'
 import {
   Button
 } from 'reactstrap';
-import { FaCheckSquare, FaSquare } from 'react-icons/fa';
+import { FaSquare } from 'react-icons/fa';
 
 import { setCourseProgression } from '../../utils'
 
@@ -12,7 +12,8 @@ const courses = require('../../courses/index').default
 class Course extends Component {
   render() {
 
-    let courseSlug = this.props.match.params.courseSlug
+    // let courseSlug = this.props.match.params.courseSlug
+    let courseSlug = this.props.location.pathname.substr(8) // Remove of "/course/" from the location.pathname
     let courseIndex = courses.findIndex(course => course.slug === courseSlug)
 
     if (courseIndex === -1)
@@ -29,7 +30,7 @@ class Course extends Component {
 
           <ul className="list-unstyled components">
             {courses.map(course => (
-              <li key={course.slug}>
+              <li key={course.slug} style={course.isNewPart ? {marginTop: 15} : {}}>
                 <NavLink to={"/course/" + course.slug}> <FaSquare /> {course.title}</NavLink>
               </li>
             ))}

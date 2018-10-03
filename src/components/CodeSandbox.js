@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -38,6 +39,7 @@ class CodeSandbox extends Component {
   }
 
   testEquality = (x, y) => {
+    // eslint-disable-next-line 
     if (x == y)
       this.addLog(`Test succesful: ${x} === ${y}`, "success")
     else
@@ -58,8 +60,12 @@ class CodeSandbox extends Component {
           `var THAT = this; ${this.state.codeContent} ;\n${this.props.testContent}`
             .replace(/console\.log/g, `THAT.addLog`)
             .replace(/testEquality/g, `THAT.testEquality`)
+
+        // eslint-disable-next-line 
         let f = new Function(functionContent);
         f.call(this);
+
+        // eval(functionContent)
 
         console.log('DEBUG this.futureLogs', this.futureLogs);
 
@@ -81,17 +87,19 @@ class CodeSandbox extends Component {
 
   }
 
+  handleAceLoad = () => {
+    this.setState({
+      codeContent: this.state.codeContent.trim() + "\n"
+    })
+  }
+
   handleAceChange = (codeContent, e) => {
-    console.log('DEBUG e', e);
     this.setState({
       codeContent
     })
   }
 
   renderLog = (log, i) => {
-    // if (log instanceof Error)
-    //   return <figure key={i} className="highlight"><pre style={{color: "red"}}>Error: {log.message}</pre></figure>
-
     let message;
     try {
       message = JSON.stringify(log.content, null, 2)
@@ -115,6 +123,7 @@ class CodeSandbox extends Component {
             <Editor
               minLines={10}
               value={this.state.codeContent}
+              onLoad={this.handleAceLoad}
               onChange={this.handleAceChange}
               commands={[{
                 name: 'run-command',
