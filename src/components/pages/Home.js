@@ -39,26 +39,6 @@ class Home extends Component {
           <Button color="primary" tag={Link} to="/course/intro-to-js" size="lg" >Go to the first course</Button>
         </div>
 
-        <AceEditor
-          mode="javascript"
-          theme="monokai"
-          name="blah2"
-          onLoad={this.onLoad}
-          onChange={this.onChange}
-          fontSize={14}
-          showPrintMargin={true}
-          showGutter={true}
-          highlightActiveLine={true}
-          value={this.state.code}
-          setOptions={{
-            enableBasicAutocompletion: false,
-            enableLiveAutocompletion: false,
-            enableSnippets: false,
-            showLineNumbers: true,
-            tabSize: 2,
-          }} />
-
-
         <h2 className="mt-5">Developed by</h2>
         <div className="my-3">
           <img src="/ironhack-logo.png" alt="" style={{ maxWidth: "50%", width: 150 }} />

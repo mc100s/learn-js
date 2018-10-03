@@ -11,12 +11,13 @@ const courseLinks = [
   'basics/variable-types',
   'basics/equality',
   'numbers/intro',
-  'numbers/creation',
-  'test',
+  'numbers/operators',
+  'strings/intro',
+  // 'test',
 ]
 
-export default courseLinks.map((link, i) => ({ 
+export default courseLinks.map((link, i) => ({
   ...require('./' + link).default,
   slug: link,
-  isNewPart: i === 0 || courseLinks[i-1].substr(0,courseLinks[i-1].indexOf('/')) !== courseLinks[i].substr(0,courseLinks[i].indexOf('/'))
+  isNewPart: i === 0 || courseLinks[i - 1].substr(0, courseLinks[i - 1].indexOf('/')) !== courseLinks[i].substr(0, courseLinks[i].indexOf('/'))
 }))

@@ -35,7 +35,7 @@ var qux = "life";
 
 
 
-        <CodeSandbox slug="basics-about-programming" initialCodeContent={`
+        <CodeSandbox slug="basics/equality" initialCodeContent={`
 // You can simply click on "Run" on see the results
 `} testContent={`
 // Tests

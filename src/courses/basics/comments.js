@@ -34,7 +34,7 @@ var a = "this is a variable defined in a statement";
 
       <div className="alert alert-success">On most text editors (including on this website), you can write comments by typing <kbd>Ctrl + /</kbd> or <kbd>Ctrl + Shift + /</kbd></div>
 
-      <CodeSandbox slug="basics-about-programming" initialCodeContent={`
+      <CodeSandbox slug="basics/comments" initialCodeContent={`
 comment me with //
 
 comment 

@@ -38,11 +38,21 @@ $navbar-height: 60px;
   pre {
     white-space: pre-wrap;
   }
+
+  h3 {
+    font-size: 1.75rem !important;
+  }
 }
 
 .content>div>pre {
   padding: 1rem;
   background: #f7f7f7;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .App {
@@ -111,6 +121,11 @@ $navbar-height: 60px;
 
     h2 {
       margin-bottom: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-top: 1.25rem;
     }
   }
 }

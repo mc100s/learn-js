@@ -22,7 +22,7 @@ export default {
 
       JavaScript is a “loosely typed” language, which means that you don't have to explicitly declare what type of data the variables are. You just need to use the var keyword to indicate that you are declaring a variable, and the interpreter will work out what data type you are using from the context, and use of quotes.
 
-<CodeSandbox slug="variable-types" initialCodeContent={`
+<CodeSandbox slug="basics/variable-types" initialCodeContent={`
 // Goal: create a variable a, b, c and d and try to pass the tests
 var a = ...;
 `} testContent={`

@@ -30,7 +30,7 @@ class Course extends Component {
 
           <ul className="list-unstyled components">
             {courses.map(course => (
-              <li key={course.slug} style={course.isNewPart ? {marginTop: 15} : {}}>
+              <li key={course.slug} className="truncate" style={course.isNewPart ? {marginTop: 15} : {}}>
                 <NavLink to={"/course/" + course.slug}> <FaSquare /> {course.title}</NavLink>
               </li>
             ))}

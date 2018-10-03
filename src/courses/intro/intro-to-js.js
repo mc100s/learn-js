@@ -22,7 +22,7 @@ export default {
             If you are connected, you should see your number of points increase in the top navbar.
       
       
-      <CodeSandbox slug="into-to-js" initialCodeContent={``} testContent={`
+      <CodeSandbox slug="intro/into-to-js" initialCodeContent={``} testContent={`
 // Test to make sure that x is equl to 42
 testEquality(x, 42);
 `} />

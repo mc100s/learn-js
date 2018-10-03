@@ -24,7 +24,7 @@ var world = "World";
 var message = hello + " " + world;
 `} />
 
-      <CodeSandbox slug="basics-about-programming" initialCodeContent={`var hello = "Hello";
+      <CodeSandbox slug="basics/intro" initialCodeContent={`var hello = "Hello";
 var world = "World";
 var message = hello + " " + world;
 

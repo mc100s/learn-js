@@ -88,8 +88,9 @@ class CodeSandbox extends Component {
   }
 
   handleAceLoad = () => {
+    let extraCharacter = this.state.codeContent.trim().length > 0 ? '\n' : ''
     this.setState({
-      codeContent: this.state.codeContent.trim() + "\n"
+      codeContent: this.state.codeContent.trim() + extraCharacter
     })
   }
 
