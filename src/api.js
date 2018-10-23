@@ -193,7 +193,8 @@ export default {
     return db.collection("users").doc(uid).onSnapshot(doc => {
       console.log('DEBUG doc', doc);
       let user = doc.data()
-      if (user) cb(user)
+      // if (user) 
+      cb(user)
     })
   }
 }

@@ -5,7 +5,7 @@ import {
   Button,
   Row,
   Col,
-  Alert
+  Alert,
 } from 'reactstrap';
 
 import 'brace/mode/javascript';
@@ -22,7 +22,8 @@ class CodeSandbox extends Component {
     this.state = {
       logs: [],
       codeContent: this.props.initialCodeContent,
-      isSolved: false
+      isDataLoading: true,
+      isSolved: false,
     }
     this.futureLogs = []
   }
@@ -113,9 +114,20 @@ class CodeSandbox extends Component {
     }
   }
 
+  signIn = () => {
+    api.signInWithGoogle()
+      .then(result => {
+        window.location.reload();
+      })
+      .catch(error => {
+        console.log('error', error);
+      });
+  }
+
   render() {
     return (
       <div className="CodeSandbox mt-5 mb-3">
+        {!api.loadUser() && <Button onClick={this.signIn} outline color="primary" block>Sign in with Google to track your progress</Button>}
 
         <Row>
           <Col sm="8">
@@ -154,14 +166,14 @@ class CodeSandbox extends Component {
     this.unsubscribe = api.onUserSnapshot(user => {
       if (user.solvedExercises.includes(this.props.slug)) {
         this.setState({
-          isSolved: true
+          isSolved: true,
+          isDataLoading: false,
         })
       }
     })
   }
 
   componentDidUpdate(prevProps) {
-
     if (this.props.initialCodeContent !== prevProps.initialCodeContent) {
       // We are on a new page
       this.unsubscribe()

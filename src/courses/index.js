@@ -10,9 +10,9 @@ const courseLinks = [
   'basics/variables',
   'basics/variable-types',
   'basics/equality',
-  'numbers/intro',
-  'numbers/operators',
-  'strings/intro',
+  'types/numbers',
+  'types/strings',
+  'types/arrays',
   // 'test',
 ]
 

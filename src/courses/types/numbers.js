@@ -3,10 +3,24 @@ import CodeSandbox from '../../components/CodeSandbox';
 import Editor from '../../components/Editor';
 
 export default {
-  title: "Number Operators",
+  title: "Numbers",
   content: (
 
     <div>
+
+      JavaScript has <strong>only one type of numbers</strong> – 64-bit float point. It's the same as Java's double. Unlike most other programming languages, there is no separate integer type, so <code>1</code> and  <code>1.0</code> are the same value. <br /><br />
+
+      In this chapter, we'll learn how to create numbers and perform operations on them (like additions and subtractions).
+
+      <CodeSandbox slug="types/numbers-1" initialCodeContent={`
+// Create a variable answer and pi with the right values so you can pass the tests
+`} testContent={`
+// Tests
+testEquality(answer, 42);
+testEquality(pi, 3.1416);
+`} />
+
+      <h3>Operators</h3>
 
       To play with numbers, you can use different operators. In the following example, we asume <code>a = 7</code> and <code>b = 2</code>. <br /><br />
 
@@ -76,7 +90,7 @@ export default {
       </table>
 
 
-      <CodeSandbox slug="numbers/operators" initialCodeContent={`
+      <CodeSandbox slug="types/numbers-2" initialCodeContent={`
 // Create variables a, b, c and d
 `} testContent={`
 // Test for a
