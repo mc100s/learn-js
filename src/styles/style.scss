@@ -146,6 +146,10 @@ $navbar-height: 60px;
     z-index: 50;
     top: 0;
 
+    a:hover {
+      text-decoration: none;
+    }
+
     @media screen and (max-width: 900px) {
       display: none;
     }
