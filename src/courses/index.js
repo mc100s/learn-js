@@ -17,6 +17,7 @@ const courseLinks = [
   'loops/for',
   'loops/while',
   'functions/intro',
+  'conclusion/whats-next',
   // 'test',
 ]
 

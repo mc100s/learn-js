@@ -20,6 +20,8 @@ export default {
             and then click on "<strong>Run</strong>".
       <br /><br />
             If you are connected, you should see your number of points increase in the top navbar.
+
+            Happy coding!
       
       
       <CodeSandbox slug="intro/into-to-js" initialCodeContent={``} testContent={`
