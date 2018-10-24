@@ -13,6 +13,10 @@ const courseLinks = [
   'types/numbers',
   'types/strings',
   'types/arrays',
+  'conditions/ifelse',
+  'loops/for',
+  'loops/while',
+  'functions/intro',
   // 'test',
 ]
 

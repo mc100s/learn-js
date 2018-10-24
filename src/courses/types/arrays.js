@@ -79,18 +79,31 @@ testEquality(array2.length, 2);
 
       <h3>Push</h3>
 
-      You can insert elements inside an array with their method push. In fact, there is many other properties:
+      You can insert elements inside an array with their method <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push"><code>push</code></a>. To use it, you just need to write <code>myArray.push(value)</code>, it will insert elements in the end.
 
 
-      ..............
+      <Editor value={`
+var animals = ['pigs', 'goats', 'sheep'];
+
+animals.push('cows');
+console.log(animals);
+// => ["pigs", "goats", "sheep", "cows"]
+
+animals.push('chickens');
+console.log(animals);
+// expected output: Array ["pigs", "goats", "sheep", "cows", "chickens"]
+      `} />
 
 
 
       <CodeSandbox slug="types/arrays-3" initialCodeContent={`
-
+var fruits = ['strawberry'];
+// TODO: use the method push to pass the tests
       `} testContent={`
 // Tests
-testEquality(,);
+testEquality(fruits.length, 4);
+testEquality(fruits[0], 'strawberry');
+testEquality(fruits[2], 'banana');
       `} />
 
     </div>
