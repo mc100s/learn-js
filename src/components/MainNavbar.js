@@ -71,9 +71,9 @@ class MainNavbar extends Component {
   signOut = () => {
     api.signOut()
       .then(function () {
-        // Sign-out successful.
+        console.log('signOut successful');
       }).catch(function (error) {
-        console.log('DEBUG no!!!!', error);
+        console.log('signOut unsuccesfull', error);
       });
   }
 
@@ -104,7 +104,7 @@ class MainNavbar extends Component {
               {this.state.user && <NavItem><NavLink>{this.state.user.score} points</NavLink></NavItem>}
               {this.state.user && (<UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  {this.state.user.displayName}
+                  {this.state.user.displayName || this.state.user.email}
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem onClick={this.signOut}>
@@ -112,7 +112,8 @@ class MainNavbar extends Component {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>)}
-              {!this.state.user && <Button onClick={this.signIn} outline color="light">Sign in with Google to track your progress</Button>}
+              {/* {!this.state.user && <Button onClick={this.signIn} outline color="light">Sign in with Google to track your progress</Button>} */}
+              {!this.state.user && <Button tag={Link} to="/login" outline color="light">Log in to track your progress</Button>}
             </Nav>
           </Collapse>
         </Navbar>
@@ -123,6 +124,7 @@ class MainNavbar extends Component {
   componentDidMount() {
     api.onAuthStateChanged(user => {
       if (user) {
+        console.log("MainNavbar ==> signed in")
         // User is signed in
         api.getUser()
           .then(user => {
@@ -131,11 +133,14 @@ class MainNavbar extends Component {
           })
       } else {
         // User is signed out
+
+        console.log("MainNavbar ==> Signed out")
         this.setState({ user: null })
       }
     })
 
     api.onUserSnapshot(user => {
+      console.log("MainNavbar ==> onUserSnapshot")
       this.setState({ user })
     })
   }

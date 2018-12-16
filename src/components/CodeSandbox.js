@@ -127,8 +127,6 @@ class CodeSandbox extends Component {
   render() {
     return (
       <div className="CodeSandbox mt-5 mb-3">
-        {!api.loadUser() && <Button onClick={this.signIn} outline color="primary" block>Sign in with Google to track your progress</Button>}
-
         <Row>
           <Col sm="8">
             <h3>Input <Button className="float-right" color={this.state.isSolved ? "success" : "primary"} onClick={this.runCode} size="md">Run (Ctrl + Enter)</Button></h3>
@@ -164,7 +162,7 @@ class CodeSandbox extends Component {
 
   componentDidMount() {
     this.unsubscribe = api.onUserSnapshot(user => {
-      if (user.solvedExercises.includes(this.props.slug)) {
+      if (user.solvedExercises && user.solvedExercises.includes(this.props.slug)) {
         this.setState({
           isSolved: true,
           isDataLoading: false,

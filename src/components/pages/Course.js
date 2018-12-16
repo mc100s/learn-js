@@ -4,15 +4,16 @@ import {
   Button
 } from 'reactstrap';
 import { FaSquare } from 'react-icons/fa';
+import api from '../../api'
 
 import { setCourseProgression } from '../../utils'
 
 const courses = require('../../courses/index').default
 
 class Course extends Component {
+
   render() {
 
-    // let courseSlug = this.props.match.params.courseSlug
     let courseSlug = this.props.location.pathname.substr(8) // Remove of "/course/" from the location.pathname
     let courseIndex = courses.findIndex(course => course.slug === courseSlug)
 
@@ -20,6 +21,8 @@ class Course extends Component {
       courseIndex = 0
 
     let course = courses[courseIndex]
+
+    let isCourseVisible = api.iSignedIn() || courseIndex <= 1
 
     return (
       <div className="Course">
@@ -30,7 +33,7 @@ class Course extends Component {
 
           <ul className="list-unstyled components">
             {courses.map(course => (
-              <li key={course.slug} className="truncate" style={course.isNewPart ? {marginTop: 15} : {}}>
+              <li key={course.slug} className="truncate" style={course.isNewPart ? { marginTop: 15 } : {}}>
                 <NavLink to={"/course/" + course.slug}> <FaSquare /> {course.title}</NavLink>
               </li>
             ))}
@@ -40,7 +43,10 @@ class Course extends Component {
         <div className="content container">
 
           <h2>{course.title}</h2>
-          {course.content}
+
+          {isCourseVisible && course.content}
+          {!isCourseVisible && <Button tag={Link} to="/login" color="primary" block>Sign in to visualize the content and track your progress</Button>}
+
 
           <hr />
 

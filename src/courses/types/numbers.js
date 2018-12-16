@@ -1,6 +1,5 @@
 import React from 'react';
 import CodeSandbox from '../../components/CodeSandbox';
-import Editor from '../../components/Editor';
 
 export default {
   title: "Numbers",

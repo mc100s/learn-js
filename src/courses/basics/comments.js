@@ -10,17 +10,17 @@ export default {
 
       Comments are statements that will not be executed by the interpreter, comments are used to mark annotations for other programmers or small descriptions of what your code does, thus making it easier for others to understand what your code does. <br /> <br />
 
-      In Javascript, comments can be written in 2 different ways: <br/><br/>
+      In Javascript, comments can be written in 2 different ways: <br /><br />
 
-      <strong>1) Line starting with <code>//</code></strong>
-      
+      <strong>1) Line starting with <code>{'//'}</code></strong>
+
       <Editor value={`
 // This is a comment, it will be ignored by the interpreter
 var a = "this is a variable defined in a statement";
 `}
       />
 
-      <strong>2) Section of code starting with <code>/*</code> and ending with <code>*/</code>, this method is used for multi-line comments:</strong>
+      <strong>2) Section of code starting with <code>{'/*'}</code> and ending with <code>{'*/'}</code>, this method is used for multi-line comments:</strong>
 
 
       <Editor value={`

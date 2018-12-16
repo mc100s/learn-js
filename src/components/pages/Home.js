@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import CodeSandbox from '../../components/CodeSandbox';
 import {
   Button
 } from 'reactstrap';
@@ -47,7 +46,7 @@ class Home extends Component {
             </div>
 
             <div className="my-5">
-              <Button color="primary" tag={Link} to="/course/intro-to-js" size="lg" >Go to the first course</Button>
+              <Button color="primary" tag={Link} to="/course/intro/intro-to-js" size="lg" >Go to the first course</Button>
             </div>
           </div>
         </div>
@@ -67,27 +66,6 @@ class Home extends Component {
             </div>
           </div>
         </section>
-
-        {/* <section className="container">
-
-          <CodeSandbox slug="types/numbers-1dsfsd" initialCodeContent={`
-var language = "fr";
-var greetings;
-if (language === "de") {
-  greetings = "Hallo";
-}
-else if (language === "fr") {
-  greetings = "Bonjour";
-}
-else {
-  greetings = "Hello";
-}
-`} testContent={`
-// Tests
-testEquality(greetings, "Bonjour");
-`} />
-        </section> */}
-
 
         <section className="container">
           <h2>The methodology</h2>
@@ -126,7 +104,7 @@ testEquality(greetings, "Bonjour");
         <section className="container">
           <h2>Are you ready?</h2>
           <div className="my-5">
-            <Button color="primary" tag={Link} to="/course/intro-to-js" size="lg" >Go to the first course</Button>
+            <Button color="primary" tag={Link} to="/course/intro/intro-to-js" size="lg" >Go to the first course</Button>
           </div>
         </section>
 

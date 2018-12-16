@@ -23,6 +23,38 @@ localStorage.user is used have a cache version of the connected user
 export default {
   db,
 
+  sendSignInLinkToEmail(email) {
+
+  },
+
+  signUp(email, password) {
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(result => {
+        const actionCodeSettings = {
+          url: window.location.origin + '/login',
+          handleCodeInApp: true,
+        }
+        // return firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
+        return result.user.sendEmailVerification(actionCodeSettings)
+      })
+      .then(() => {
+        // The link was successfully sent. Inform the user.
+        // Save the email locally so you don't need to ask the user for it again
+        // if they open the link on the same device.
+        localStorage.setItem('emailForSignIn', email);
+      })
+  },
+
+  signIn(email, password) {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(result => {
+        if (!result.user.emailVerified) throw new Error("Validate your account first! You've received an email")
+        localStorage.setItem('uid', result.user.uid);
+        return Promise.all([result, this.saveUserIfNew(result.user)])
+      })
+      .then(([result, _]) => result)
+  },
+
   signInWithGoogle() {
     let provider = new firebase.auth.GoogleAuthProvider()
     return firebase.auth().signInWithPopup(provider)
@@ -37,8 +69,13 @@ export default {
   signOut() {
     return firebase.auth().signOut()
       .then(() => {
+        localStorage.removeItem('uid');
         localStorage.removeItem('user');
       })
+  },
+
+  iSignedIn() {
+    return localStorage.getItem('user') != null
   },
 
   loadUser() {

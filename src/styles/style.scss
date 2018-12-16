@@ -184,3 +184,26 @@ $navbar-height: 60px;
     }
   }
 }
+
+.Login, .Signup {
+  margin-top: 60px;
+  text-align: center;
+  max-width: 500px;
+
+  form {
+    margin-top: 30px;
+  }
+
+  hr {
+    margin: 50px 0;
+  }
+
+  .google-logo {
+    height: 30px;
+    padding-right: 10px;
+  }
+
+  .alert {
+    margin-top: 10px;
+  }
+}
